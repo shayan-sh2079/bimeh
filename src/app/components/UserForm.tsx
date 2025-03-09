@@ -10,6 +10,9 @@ import { PHONE_RGX } from "@/common/constants/validations";
 import { validateNationalCode } from "@/common/utils/validations";
 import { orderRegistration } from "@/common/services/orders";
 import { persianToEnglishNum } from "@/common/utils/general";
+import { USER_DATA_STORAGE_KEY } from "@/common/constants/storage";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface Inputs {
   nationalCode: string;
@@ -32,11 +35,13 @@ const schema = z.object({
 });
 
 const UserForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -48,8 +53,17 @@ const UserForm = () => {
       phoneNumber: persianToEnglishNum(data.phone),
       addressId: data.addr.id,
     };
-    await orderRegistration(reqData);
+    localStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(data));
+    router.push("/success-page");
+    // await orderRegistration(reqData);
   };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem(USER_DATA_STORAGE_KEY);
+    if (storedData) {
+      reset(JSON.parse(storedData));
+    }
+  }, []);
 
   return (
     <form className={"flex grow flex-col"} onSubmit={handleSubmit(onSubmit)}>
