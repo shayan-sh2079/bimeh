@@ -2,25 +2,31 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  direction: rtl;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --shadow-md: 0px 3px 7px -1px #2222221A;
+  --shadow-sm: 0px 3px 15px 3px #2222221A;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-yellow-main: #FFC453;
+  --color-blue-main: #1D48E1;
+  --color-grey-900: #808080;
+  --color-grey-100: #DAD8D8;
+  --color-grey-200: #C2C2C2;
+  --color-grey-300: #525252;
+  --color-grey-500: #757575;
+  --color-grey-600: #797979;
+  --color-grey-650: #858484;
+  --color-grey-700: #ACACAC;
+  --color-grey-800: #F2F2F2;
+  --color-grey-border: #E0E0E0;
+  --color-input-border: #B4B4B4;
+  --color-red-main: #E61F10;
+  --color-red-300: #FFA5A5;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --radius-md: 5px;
 }

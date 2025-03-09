@@ -1,10 +1,13 @@
-const LoadingDarkIcon = () => {
+import { IconsProps } from "@/common/types/components";
+
+const LoadingDarkIcon = (props: IconsProps) => {
   return (
     <svg
       width="20"
       height="21"
       viewBox="0 0 20 21"
       fill="none"
+      className={props.className}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0_1399_274)">
