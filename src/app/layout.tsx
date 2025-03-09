@@ -1,5 +1,7 @@
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
+import ToastContainerClient from "@/common/components/ToastContainerClient";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -8,10 +10,8 @@ const vazirmatn = Vazirmatn({
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal?: React.ReactNode;
 }>) {
   return (
     <html lang="fa">
@@ -19,6 +19,7 @@ export default function RootLayout({
         className={`${vazirmatn.variable} font-[family-name:var(--font-vazirmatn)]`}
       >
         <main className={"mx-auto max-w-lg"}>{children}</main>
+        <ToastContainerClient />
       </body>
     </html>
   );

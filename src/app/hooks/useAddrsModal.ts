@@ -5,7 +5,7 @@ const useAddrModal = (
   addrsPromise: Promise<Addr[]>,
   onDeleteOpen: (addr: Addr) => void,
 ) => {
-  const addrs = (() => {
+  const addrs: Addr[] = (() => {
     const storedAddrs = sessionStorage.getItem(ADDRS_STORAGE_KEY);
     if (storedAddrs) return JSON.parse(storedAddrs);
 

@@ -1,15 +1,9 @@
 "use client";
 
 import Button from "@/common/ui/Button";
-import useModal from "@/common/hooks/useModal";
-import {
-  CHOOSE_ADDR_MODAL,
-  DELETE_ADDR_MODAL,
-} from "@/common/constants/modals";
 import dynamic from "next/dynamic";
 import ModalLoading from "@/common/ui/ModalLoading";
-import { useState } from "react";
-import { ADDRS_STORAGE_KEY } from "@/common/constants/storage";
+import useAddressInput from "@/app/hooks/useAddressInput";
 
 const AddrsModalDynamic = dynamic(() => import("@/app/components/AddrsModal"), {
   loading: ModalLoading,
@@ -28,13 +22,16 @@ interface Props {
 }
 
 const AddressInput = (props: Props) => {
-  const { onOpen, isOpen: isChooseOpen, onClose } = useModal(CHOOSE_ADDR_MODAL);
   const {
-    onOpen: onDeleteOpen,
-    onClose: onDeleteClose,
-    isOpen: isDeleteOpen,
-  } = useModal(DELETE_ADDR_MODAL);
-  const [addrToDelete, setAddrToDelete] = useState<Addr | null>();
+    onChooseOpen,
+    isChooseOpen,
+    onChooseClose,
+    onDeleteClose,
+    isDeleteOpen,
+    addrToDelete,
+    onConfirmDelete,
+    onDelete,
+  } = useAddressInput();
 
   return (
     <>
@@ -56,7 +53,7 @@ const AddressInput = (props: Props) => {
             <Button
               color={"yellow"}
               className={"w-full"}
-              onClick={onOpen}
+              onClick={onChooseOpen}
               type={"button"}
             >
               انتخاب از آدرس های من
@@ -67,31 +64,16 @@ const AddressInput = (props: Props) => {
       {isChooseOpen && (
         <AddrsModalDynamic
           onSelect={(addr) => {
-            onClose();
+            onChooseClose();
             props.onSelectAddress(addr);
           }}
-          onClose={onClose}
-          onDeleteOpen={(addr) => {
-            setAddrToDelete(addr);
-            onDeleteOpen();
-          }}
+          onClose={onChooseClose}
+          onDeleteOpen={onDelete}
         />
       )}
       {isDeleteOpen && addrToDelete && (
         <DeleteAddrModelDynamic
-          onConfirm={() => {
-            const storedAddresses: Addr[] = JSON.parse(
-              sessionStorage.getItem(ADDRS_STORAGE_KEY)!,
-            );
-            const newAddresses = storedAddresses.filter(
-              (addr) => addr.id !== addrToDelete?.id,
-            );
-            sessionStorage.setItem(
-              ADDRS_STORAGE_KEY,
-              JSON.stringify(newAddresses),
-            );
-            onDeleteClose();
-          }}
+          onConfirm={onConfirmDelete}
           onClose={onDeleteClose}
           addr={addrToDelete!}
         />

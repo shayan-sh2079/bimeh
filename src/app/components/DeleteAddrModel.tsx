@@ -11,11 +11,15 @@ interface Props {
 const DeleteAddrModel = (props: Props) => {
   const modalAction = useMemo(
     () => (
-      <div className={"flex gap-2.5"}>
-        <Button className={"grow"} onClick={props.onConfirm}>
+      <div className={"grid grid-cols-2 gap-2.5"}>
+        <Button className={"col-span-1"} onClick={props.onConfirm}>
           تایید
         </Button>
-        <Button className={"grow"} onClick={props.onClose} variant={"outlined"}>
+        <Button
+          className={"col-span-1"}
+          onClick={props.onClose}
+          variant={"outlined"}
+        >
           بازگشت
         </Button>
       </div>

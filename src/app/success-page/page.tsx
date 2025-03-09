@@ -1,16 +1,12 @@
-"use client";
-
 import Header from "@/common/components/Header";
 import CarPlate from "@/common/ui/CarPlate";
 import InsuranceTextsPairs from "@/common/components/InsuranceTextsPairs";
 import Image from "next/image";
 import successImg from "@/common/assets/success.png";
-import { useRouter } from "next/navigation";
 import Button from "@/common/ui/Button";
+import Link from "next/link";
 
 export default function SuccessPage() {
-  const router = useRouter();
-
   return (
     <section className={"flex min-h-dvh flex-col pb-3"}>
       <Header text={"مشخصات بیمه نامه"} />
@@ -25,12 +21,9 @@ export default function SuccessPage() {
         <CarPlate />
         <InsuranceTextsPairs />
       </div>
-      <Button
-        onClick={() => router.back()}
-        className={"mt-auto mr-auto ml-4.5 w-33"}
-      >
-        بازگشت
-      </Button>
+      <Link href={"/"} className={"mt-auto mr-auto ml-4.5"}>
+        <Button className={"w-33"}>بازگشت</Button>
+      </Link>
     </section>
   );
 }

@@ -1,4 +1,6 @@
 import { ComponentProps, useMemo } from "react";
+import LoadingLightIcon from "@/common/icons/LoadingLightIcon";
+import LoadingDarkIcon from "@/common/icons/LoadingDarkIcon";
 
 interface Props extends ComponentProps<"button"> {
   color?: ButtonColors;
@@ -12,7 +14,8 @@ const getClasses = (
   isLoading: boolean,
   disabled: boolean,
 ) => {
-  const baseClasses = "h-12 px-5 font-medium text-base ";
+  const baseClasses =
+    "flex items-center justify-center cursor-pointer h-12 px-6 font-medium text-base gap-2.5 ";
   if (isLoading) {
     switch (variant) {
       case "contained":
@@ -72,7 +75,18 @@ const Button = ({
       type={type}
       {...props}
     >
-      {children}
+      {isLoading ? (
+        <>
+          {variant === "contained" ? (
+            <LoadingLightIcon className={"animate-spin"} />
+          ) : (
+            <LoadingDarkIcon className={"animate-spin"} />
+          )}
+          {children}
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 };
