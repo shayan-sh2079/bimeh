@@ -59,13 +59,13 @@ const useUserForm = () => {
       toast.error(errorMsg);
       if (!isOpen) onOpen();
     } else {
-      localStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(data));
+      sessionStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(data));
       router.push("/success-page");
     }
   };
 
   useEffect(() => {
-    const storedData = localStorage.getItem(USER_DATA_STORAGE_KEY);
+    const storedData = sessionStorage.getItem(USER_DATA_STORAGE_KEY);
     if (storedData) {
       reset(JSON.parse(storedData));
     }
